@@ -2,12 +2,11 @@
 
 namespace BookShelf.Views.MainWindow;
 
-public partial class MainWindow : IMainWindow
+public partial class MainWindow
 {
     public MainWindow(IMainWindowViewModel mainWindowViewModel)
+        : base(mainWindowViewModel)
     {
         InitializeComponent();
-
-        DataContext = mainWindowViewModel;
     }
 }

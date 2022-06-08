@@ -5,6 +5,7 @@ using BookShelf.Domain.Factories;
 using BookShelf.Domain.Settings;
 using BookShelf.Domain.Version;
 using BookShelf.ViewModels.Commands;
+using BookShelf.ViewModels.Genres;
 using BookShelf.ViewModels.Windows;
 
 namespace BookShelf.ViewModels.MainWindow;
@@ -14,24 +15,29 @@ public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, I
     private readonly IFactory<IAboutWindowViewModel> _aboutWindowViewModelFactory;
     private readonly Command _closeMainWindowCommand;
     private readonly IDispatcherTimer _dispatcherTimer;
+    private readonly IFactory<IGenreCollectionViewModel> _genreCollectionViewModelFactory;
     private readonly Command _openAboutWindowCommand;
+    private readonly Command _openGenreCollectionCommand;
     private readonly IWindowManager _windowManager;
-    private IAboutWindowViewModel _aboutWindowViewModel;
+    private IMainWindowContentViewModel _contentViewModel;
     private string _currentDate;
     private string _currentTime;
 
     public MainWindowViewModel(
         IMainWindowMementoWrapper mainWindowMementoWrapper,
         IWindowManager windowManager,
+        IFactory<IGenreCollectionViewModel> genreCollectionViewModelFactory,
+        IFactory<IAboutWindowViewModel> aboutWindowViewModelFactory,
         IApplicationVersionProvider applicationVersionProvider,
-        IDispatcherTimerFactory dispatcherTimerFactory,
-        IFactory<IAboutWindowViewModel> aboutWindowViewModelFactory)
+        IDispatcherTimerFactory dispatcherTimerFactory)
         : base(mainWindowMementoWrapper)
     {
         _windowManager = windowManager;
+        _genreCollectionViewModelFactory = genreCollectionViewModelFactory;
         _aboutWindowViewModelFactory = aboutWindowViewModelFactory;
 
         _closeMainWindowCommand = new Command(CloseMainWindow);
+        _openGenreCollectionCommand = new Command(OpenGenreCollection);
         _openAboutWindowCommand = new Command(OpenAboutWindow);
         _dispatcherTimer = dispatcherTimerFactory.Create(TimeSpan.FromSeconds(1));
         _dispatcherTimer.Tick += OnTimerTick;
@@ -64,14 +70,25 @@ public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, I
     }
 
     public ICommand CloseMainWindowCommand => _closeMainWindowCommand;
+    public ICommand OpenGenreCollectionCommand => _openGenreCollectionCommand;
     public ICommand OpenAboutWindowCommand => _openAboutWindowCommand;
 
-    public override void WindowClosing()
+    public IMainWindowContentViewModel ContentViewModel
     {
-        base.WindowClosing();
+        get => _contentViewModel;
+        private set
+        {
+            _contentViewModel = value;
 
-        if (_aboutWindowViewModel != null)
-            _windowManager.Close(_aboutWindowViewModel);
+            InvokePropertyChanged(nameof(ContentViewModel));
+        }
+    }
+
+    public override void AfterWindowClosed()
+    {
+        ContentViewModel?.Dispose();
+
+        base.AfterWindowClosed();
     }
 
     private void OnTimerTick(object sender, EventArgs e)
@@ -82,28 +99,15 @@ public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, I
 
     private void OpenAboutWindow()
     {
-        if (_aboutWindowViewModel==null)
-        {
-            _aboutWindowViewModel = _aboutWindowViewModelFactory.Create();
+        var aboutWindowViewModel = _aboutWindowViewModelFactory.Create();
 
-            var aboutWindow = _windowManager.Show(_aboutWindowViewModel);
-
-            aboutWindow.Closed += OnAboutWindowClosed; 
-        }
-        else
-        {
-            _windowManager.Show(_aboutWindowViewModel);
-        }
+        _windowManager.Show(aboutWindowViewModel, true);
     }
 
-    private void OnAboutWindowClosed(object sender, EventArgs e)
+    private void OpenGenreCollection()
     {
-        if (sender is IWindow window)
-        {
-            window.Closed -= OnAboutWindowClosed;
-
-            _aboutWindowViewModel = null;
-        }
+        ContentViewModel?.Dispose();
+        ContentViewModel = _genreCollectionViewModelFactory.Create();
     }
 
     private void CloseMainWindow()

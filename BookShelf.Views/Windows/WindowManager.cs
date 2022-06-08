@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using BookShelf.ViewModels.Windows;
 using BookShelf.Views.Factories;
 
@@ -17,14 +16,14 @@ internal class WindowManager : IWindowManager
         _windowFactory = windowFactory;
     }
 
-    public IWindow Show<TWindowViewModel>(TWindowViewModel viewModel)
+    public IWindow<TWindowViewModel> Show<TWindowViewModel>(TWindowViewModel viewModel, bool isModal = false)
         where TWindowViewModel : IWindowViewModel
     {
         if (_viewModelToWindowMap.TryGetValue(viewModel, out var window))
         {
             window.Activate();
 
-            return window;
+            return (IWindow<TWindowViewModel>)window;
         }
 
         window = _windowFactory.Create(viewModel);
@@ -32,12 +31,16 @@ internal class WindowManager : IWindowManager
         _viewModelToWindowMap.Add(viewModel, window);
         _windowToViewModelMap.Add(window, viewModel);
 
-        window.Closing += OnWindowClosing;
         window.Closed += OnWindowClosed;
 
-        window.Show();
+        viewModel.BeforeWindowShown();
 
-        return window;
+        if (isModal)
+            window.ShowDialog();
+        else
+            window.Show();
+
+        return (IWindow<TWindowViewModel>)window;
     }
 
     public void Close<TWindowViewModel>(TWindowViewModel viewModel)
@@ -47,21 +50,19 @@ internal class WindowManager : IWindowManager
             window.Close();
     }
 
-    private void OnWindowClosed(object sender, EventArgs e)
+    private void OnWindowClosed(object? sender, EventArgs e)
     {
-        if (sender is IWindow window && _windowToViewModelMap.TryGetValue(window, out var viewModel))
-        {
-            window.Closing -= OnWindowClosing;
-            window.Closed -= OnWindowClosed;
+        if (sender is not IWindow<IWindowViewModel> window)
+            return;
 
-            _viewModelToWindowMap.Remove(viewModel);
-            _windowToViewModelMap.Remove(window);
-        }
-    }
+        window.Closed -= OnWindowClosed;
 
-    private void OnWindowClosing(object sender, CancelEventArgs e)
-    {
-        if (sender is IWindow window && _windowToViewModelMap.TryGetValue(window, out var viewModel))
-            viewModel.WindowClosing();
+        if (!_windowToViewModelMap.TryGetValue(window, out var viewModel))
+            return;
+
+        viewModel.AfterWindowClosed();
+
+        _windowToViewModelMap.Remove(window);
+        _viewModelToWindowMap.Remove(viewModel);
     }
 }

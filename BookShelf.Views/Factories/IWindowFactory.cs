@@ -4,6 +4,6 @@ namespace BookShelf.Views.Factories;
 
 public interface IWindowFactory
 {
-    IWindow Create<TWindowViewModel>(TWindowViewModel viewModel)
+    IWindow<TWindowViewModel> Create<TWindowViewModel>(TWindowViewModel viewModel)
         where TWindowViewModel : IWindowViewModel;
 }

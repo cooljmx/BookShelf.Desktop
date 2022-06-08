@@ -2,7 +2,7 @@
 
 public interface IWindowManager
 {
-    IWindow Show<TWindowViewModel>(TWindowViewModel viewModel)
+    IWindow<TWindowViewModel> Show<TWindowViewModel>(TWindowViewModel viewModel, bool isModal = false)
         where TWindowViewModel : IWindowViewModel;
 
     void Close<TWindowViewModel>(TWindowViewModel viewModel)

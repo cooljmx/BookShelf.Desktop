@@ -5,6 +5,7 @@ using Autofac;
 using BookShelf.Domain.Factories;
 using BookShelf.Infrastructure.Common;
 using BookShelf.Infrastructure.Settings;
+using BookShelf.Infrastructure.Storage;
 using BookShelf.ViewModels.MainWindow;
 using BookShelf.ViewModels.Windows;
 
@@ -52,6 +53,8 @@ public class Bootstrapper : IDisposable
 
         foreach (var windowMementoWrapperInitializer in windowMementoWrapperInitializers)
             windowMementoWrapperInitializer.Initialize();
+
+        _container.Resolve<IGenreDtoStorageInitializer>().Initialize();
     }
 
     public void Dispose()

@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:genres="clr-namespace:BookShelf.ViewModels.Genres;assembly=BookShelf.ViewModels">
+    <DataTemplate DataType="{x:Type genres:GenreCollectionViewModel}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal"
+                        Margin="2,0">
+                <Button Content="Add"
+                        Margin="1,0,0,0"
+                        Command="{Binding AddCommand}" />
+                <Button Content="Modify"
+                        Margin="1,0,0,0"
+                        Command="{Binding ModifyCommand}" />
+                <Button Content="Remove"
+                        Margin="1,0,0,0"
+                        Command="{Binding RemoveCommand}" />
+            </StackPanel>
+            <ListBox Grid.Row="1"
+                     ItemsSource="{Binding Items}"
+                     SelectedItem="{Binding SelectedItem}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type genres:GenreCollectionItemViewModel}">
+        <TextBlock Text="{Binding Name}" />
+    </DataTemplate>
+</ResourceDictionary>

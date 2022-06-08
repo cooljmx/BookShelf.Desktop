@@ -13,5 +13,6 @@ public class RegistrationModule : Module
 
         builder.RegisterType<WindowFactory>().As<IWindowFactory>().SingleInstance();
         builder.RegisterGeneric(typeof(Factory<>)).As(typeof(IFactory<>)).SingleInstance();
+        builder.RegisterGeneric(typeof(Factory<,>)).As(typeof(IFactory<,>)).SingleInstance();
     }
 }

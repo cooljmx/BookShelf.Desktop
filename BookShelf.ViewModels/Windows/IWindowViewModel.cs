@@ -2,5 +2,6 @@
 
 public interface IWindowViewModel
 {
-    void WindowClosing();
+    void BeforeWindowShown();
+    void AfterWindowClosed();
 }

@@ -1,18 +1,20 @@
-﻿<Window x:Class="BookShelf.Views.MainWindow.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:mainWindow="clr-namespace:BookShelf.ViewModels.MainWindow;assembly=BookShelf.ViewModels"
-        xmlns:converters="clr-namespace:BookShelf.Views.Converters"
-        mc:Ignorable="d"
-        Title="{Binding Title, Mode=OneTime}"
-        Left="{Binding Left, Mode=TwoWay}"
-        Top="{Binding Top, Mode=TwoWay}"
-        Height="{Binding Height, Mode=TwoWay}"
-        Width="{Binding Width, Mode=TwoWay}"
-        WindowState="{Binding IsMaximized, Mode=TwoWay, Converter={x:Static converters:BoolToWindowStateConverter.Instance}}"
-        d:DataContext="{d:DesignInstance mainWindow:MainWindowViewModel}">
+﻿<windows:BaseWindow x:Class="BookShelf.Views.MainWindow.MainWindow"
+                    x:TypeArguments="mainWindow:IMainWindowViewModel"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:mainWindow="clr-namespace:BookShelf.ViewModels.MainWindow;assembly=BookShelf.ViewModels"
+                    xmlns:converters="clr-namespace:BookShelf.Views.Converters"
+                    xmlns:windows="clr-namespace:BookShelf.Views.Windows"
+                    mc:Ignorable="d"
+                    Title="{Binding Title, Mode=OneTime}"
+                    Left="{Binding Left, Mode=TwoWay}"
+                    Top="{Binding Top, Mode=TwoWay}"
+                    Height="{Binding Height, Mode=TwoWay}"
+                    Width="{Binding Width, Mode=TwoWay}"
+                    WindowState="{Binding IsMaximized, Mode=TwoWay, Converter={x:Static converters:BoolToWindowStateConverter.Instance}}"
+                    d:DataContext="{d:DesignInstance mainWindow:MainWindowViewModel}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -24,11 +26,18 @@
                 <MenuItem Header="Exit"
                           Command="{Binding CloseMainWindowCommand}" />
             </MenuItem>
+            <MenuItem Header="Collections">
+                <MenuItem Header="Genres"
+                          Command="{Binding OpenGenreCollectionCommand}" />
+            </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="About"
                           Command="{Binding OpenAboutWindowCommand}" />
             </MenuItem>
         </Menu>
+
+        <ContentControl Grid.Row="1"
+                        Content="{Binding ContentViewModel}" />
 
         <StatusBar Grid.Row="2">
             <StatusBarItem Content="{Binding Version}" />
@@ -40,4 +49,4 @@
             </StatusBarItem>
         </StatusBar>
     </Grid>
-</Window>
+</windows:BaseWindow>
