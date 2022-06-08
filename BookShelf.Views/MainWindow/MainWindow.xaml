@@ -4,8 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookShelf"
+        xmlns:mainWindow="clr-namespace:BookShelf.ViewModels.MainWindow;assembly=BookShelf.ViewModels"
+        xmlns:converters="clr-namespace:BookShelf.Views.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{Binding Title, Mode=OneTime}"
+        Left="{Binding Left, Mode=TwoWay}"
+        Top="{Binding Top, Mode=TwoWay}"
+        Height="{Binding Height, Mode=TwoWay}"
+        Width="{Binding Width, Mode=TwoWay}"
+        WindowState="{Binding IsMaximized, Mode=TwoWay, Converter={x:Static converters:BoolToWindowStateConverter.Instance}}"
+        d:DataContext="{d:DesignInstance mainWindow:MainWindowViewModel}">
     <Grid>
 
     </Grid>
