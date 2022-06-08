@@ -1,7 +1,8 @@
-﻿namespace BookShelf.ViewModels.MainWindow
+﻿using BookShelf.ViewModels.Windows;
+
+namespace BookShelf.ViewModels.MainWindow
 {
-    public interface IMainWindowViewModel
+    public interface IMainWindowViewModel : IWindowViewModel
     {
-        
     }
 }

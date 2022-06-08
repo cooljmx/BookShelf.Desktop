@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookShelf"
         xmlns:mainWindow="clr-namespace:BookShelf.ViewModels.MainWindow;assembly=BookShelf.ViewModels"
         xmlns:converters="clr-namespace:BookShelf.Views.Converters"
         mc:Ignorable="d"
@@ -15,6 +14,9 @@
         WindowState="{Binding IsMaximized, Mode=TwoWay, Converter={x:Static converters:BoolToWindowStateConverter.Instance}}"
         d:DataContext="{d:DesignInstance mainWindow:MainWindowViewModel}">
     <Grid>
-
+        <Button Content="Close Main Window"
+                Command="{Binding CloseMainWindowCommand}"
+                Width="120"
+                Height="21" />
     </Grid>
 </Window>

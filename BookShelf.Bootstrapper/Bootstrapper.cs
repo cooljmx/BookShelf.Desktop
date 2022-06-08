@@ -2,8 +2,8 @@
 using System.Windows;
 using Autofac;
 using BookShelf.Infrastructure.Settings;
-using BookShelf.ViewModels;
-using BookShelf.Views.MainWindow;
+using BookShelf.ViewModels.MainWindow;
+using BookShelf.ViewModels.Windows;
 
 namespace BookShelf.Bootstrapper
 {
@@ -17,6 +17,7 @@ namespace BookShelf.Bootstrapper
 
             containerBuilder
                 .RegisterModule<Infrastructure.RegistrationModule>()
+                .RegisterModule<ViewModels.RegistrationModule>()
                 .RegisterModule<Views.RegistrationModule>()
                 .RegisterModule<RegistrationModule>();
 
@@ -32,12 +33,13 @@ namespace BookShelf.Bootstrapper
         {
             InitializeDependencies();
 
-            var mainWindow = _container.Resolve<IMainWindow>();
+            var mainWindowViewModel = _container.Resolve<IMainWindowViewModel>();
+            var windowManager = _container.Resolve<IWindowManager>();
+
+            var mainWindow = windowManager.Show(mainWindowViewModel);
 
             if (mainWindow is not Window window)
                 throw new NotImplementedException();
-
-            window.Show();
 
             return window;
         }

@@ -22,6 +22,8 @@
 
   <ItemGroup>
     <Folder Include="Converters\" />
+    <Folder Include="Factories\" />
+    <Folder Include="Windows\" />
   </ItemGroup>
 
 </Project>
