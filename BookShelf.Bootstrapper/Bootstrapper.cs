@@ -1,22 +1,41 @@
 ﻿using System;
 using System.Windows;
-using BookShelf.Views;
+using Autofac;
+using BookShelf.ViewModels;
+using BookShelf.Views.MainWindow;
 
 namespace BookShelf.Bootstrapper
 {
     public class Bootstrapper : IDisposable
     {
-        public Window Run()
+        private readonly IContainer _container;
+
+        public Bootstrapper()
         {
-            var mainWindow = new MainWindow();
+            var containerBuilder = new ContainerBuilder();
 
-            mainWindow.Show();
+            containerBuilder
+                .RegisterModule<Views.RegistrationModule>()
+                .RegisterModule<RegistrationModule>();
 
-            return mainWindow;
+            _container = containerBuilder.Build();
         }
 
         public void Dispose()
         {
+            _container.Dispose();
+        }
+
+        public Window Run()
+        {
+            var mainWindow = _container.Resolve<IMainWindow>();
+
+            if (mainWindow is not Window window) 
+                throw new NotImplementedException();
+
+            window.Show();
+
+            return window;
         }
     }
 }
