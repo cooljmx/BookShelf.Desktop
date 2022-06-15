@@ -2,7 +2,7 @@
 
 namespace BookShelf.Views.MainWindow
 {
-    public partial class MainWindow:IMainWindow
+    public partial class MainWindow : IMainWindow
     {
         public MainWindow(IMainWindowViewModel mainWindowViewModel)
         {

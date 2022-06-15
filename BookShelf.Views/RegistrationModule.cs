@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using BookShelf.ViewModels.Windows;
+using BookShelf.Views.AboutWindow;
 using BookShelf.Views.MainWindow;
 using BookShelf.Views.Windows;
 
@@ -13,6 +14,7 @@ namespace BookShelf.Views
 
             builder.RegisterType<MainWindow.MainWindow>().As<IMainWindow>().InstancePerDependency();
             builder.RegisterType<WindowManager>().As<IWindowManager>().SingleInstance();
+            builder.RegisterType<AboutWindow.AboutWindow>().As<IAboutWindow>().InstancePerDependency();
         }
     }
 }

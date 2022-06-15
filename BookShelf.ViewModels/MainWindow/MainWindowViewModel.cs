@@ -5,55 +5,35 @@ using BookShelf.ViewModels.Windows;
 
 namespace BookShelf.ViewModels.MainWindow
 {
-    public class MainWindowViewModel : IMainWindowViewModel
+    public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, IMainWindowViewModel
     {
-        private readonly IMainWindowMementoWrapper _mainWindowMementoWrapper;
-        private readonly IWindowManager _windowManager;
+        private readonly IAboutWindowViewModel _aboutWindowViewModel;
         private readonly Command _closeMainWindowCommand;
+        private readonly IWindowManager _windowManager;
+        private readonly Command _openAboutWindowCommand;
 
         public MainWindowViewModel(
             IMainWindowMementoWrapper mainWindowMementoWrapper,
-            IWindowManager windowManager)
+            IWindowManager windowManager,
+            IAboutWindowViewModel aboutWindowViewModel)
+            : base(mainWindowMementoWrapper)
         {
-            _mainWindowMementoWrapper = mainWindowMementoWrapper;
             _windowManager = windowManager;
+            _aboutWindowViewModel = aboutWindowViewModel;
 
             _closeMainWindowCommand = new Command(CloseMainWindow);
-        }
-
-        public double Left
-        {
-            get => _mainWindowMementoWrapper.Left;
-            set => _mainWindowMementoWrapper.Left = value;
-        }
-
-        public double Top
-        {
-            get => _mainWindowMementoWrapper.Top;
-            set => _mainWindowMementoWrapper.Top = value;
-        }
-
-        public double Width
-        {
-            get => _mainWindowMementoWrapper.Width;
-            set => _mainWindowMementoWrapper.Width = value;
-        }
-
-        public double Height
-        {
-            get => _mainWindowMementoWrapper.Height;
-            set => _mainWindowMementoWrapper.Height = value;
-        }
-
-        public bool IsMaximized
-        {
-            get => _mainWindowMementoWrapper.IsMaximized;
-            set => _mainWindowMementoWrapper.IsMaximized = value;
+            _openAboutWindowCommand = new Command(OpenAboutWindow);
         }
 
         public string Title => "Book Shelf";
 
         public ICommand CloseMainWindowCommand => _closeMainWindowCommand;
+        public ICommand OpenAboutWindowCommand => _openAboutWindowCommand;
+
+        private void OpenAboutWindow()
+        {
+            _windowManager.Show(_aboutWindowViewModel);
+        }
 
         private void CloseMainWindow()
         {

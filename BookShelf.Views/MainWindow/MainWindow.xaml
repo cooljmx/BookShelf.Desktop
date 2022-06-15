@@ -13,10 +13,15 @@
         Width="{Binding Width, Mode=TwoWay}"
         WindowState="{Binding IsMaximized, Mode=TwoWay, Converter={x:Static converters:BoolToWindowStateConverter.Instance}}"
         d:DataContext="{d:DesignInstance mainWindow:MainWindowViewModel}">
-    <Grid>
+    <StackPanel Orientation="Vertical"
+                VerticalAlignment="Center">
         <Button Content="Close Main Window"
                 Command="{Binding CloseMainWindowCommand}"
                 Width="120"
                 Height="21" />
-    </Grid>
+        <Button Content="Open About Window"
+                Command="{Binding OpenAboutWindowCommand}"
+                Width="120"
+                Height="21" />
+    </StackPanel>
 </Window>

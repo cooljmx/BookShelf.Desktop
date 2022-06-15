@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using Autofac;
+using BookShelf.Infrastructure.Common;
 using BookShelf.Infrastructure.Settings;
 using BookShelf.ViewModels.MainWindow;
 using BookShelf.ViewModels.Windows;
@@ -24,11 +26,6 @@ namespace BookShelf.Bootstrapper
             _container = containerBuilder.Build();
         }
 
-        public void Dispose()
-        {
-            _container.Dispose();
-        }
-
         public Window Run()
         {
             InitializeDependencies();
@@ -46,7 +43,17 @@ namespace BookShelf.Bootstrapper
 
         private void InitializeDependencies()
         {
-            _container.Resolve<IMainWindowMementoWrapperInitializer>().Initialize();
+            _container.Resolve<IPathServiceInitializer>().Initialize();
+
+            var windowMementoWrapperInitializers = _container.Resolve<IEnumerable<IWindowMementoWrapperInitializer>>();
+
+            foreach (var windowMementoWrapperInitializer in windowMementoWrapperInitializers)
+                windowMementoWrapperInitializer.Initialize();
+        }
+
+        public void Dispose()
+        {
+            _container.Dispose();
         }
     }
 }

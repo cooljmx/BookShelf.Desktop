@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using BookShelf.Domain.Settings;
+using BookShelf.Infrastructure.Common;
 using BookShelf.Infrastructure.Settings;
 
 namespace BookShelf.Infrastructure
@@ -12,7 +13,17 @@ namespace BookShelf.Infrastructure
 
             builder.RegisterType<MainWindowMementoWrapper>()
                 .As<IMainWindowMementoWrapper>()
-                .As<IMainWindowMementoWrapperInitializer>()
+                .As<IWindowMementoWrapperInitializer>()
+                .SingleInstance();
+
+            builder.RegisterType<PathService>()
+                .As<IPathService>()
+                .As<IPathServiceInitializer>()
+                .SingleInstance();
+
+            builder.RegisterType<AboutWindowMementoWrapper>()
+                .As<IAboutWindowMementoWrapper>()
+                .As<IWindowMementoWrapperInitializer>()
                 .SingleInstance();
         }
     }
