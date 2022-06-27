@@ -1,7 +1,9 @@
 ﻿using Autofac;
 using BookShelf.Domain.Settings;
+using BookShelf.Domain.Version;
 using BookShelf.Infrastructure.Common;
 using BookShelf.Infrastructure.Settings;
+using BookShelf.Infrastructure.Version;
 
 namespace BookShelf.Infrastructure;
 
@@ -25,5 +27,7 @@ public class RegistrationModule : Module
             .As<IAboutWindowMementoWrapper>()
             .As<IWindowMementoWrapperInitializer>()
             .SingleInstance();
+
+        builder.RegisterType<ApplicationVersionProvider>().As<IApplicationVersionProvider>().SingleInstance();
     }
 }

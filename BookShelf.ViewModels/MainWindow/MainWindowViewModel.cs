@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using BookShelf.Domain.Settings;
+using BookShelf.Domain.Version;
 using BookShelf.ViewModels.Commands;
 using BookShelf.ViewModels.Windows;
 
@@ -15,7 +16,8 @@ public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, I
     public MainWindowViewModel(
         IMainWindowMementoWrapper mainWindowMementoWrapper,
         IWindowManager windowManager,
-        IAboutWindowViewModel aboutWindowViewModel)
+        IAboutWindowViewModel aboutWindowViewModel,
+        IApplicationVersionProvider applicationVersionProvider)
         : base(mainWindowMementoWrapper)
     {
         _windowManager = windowManager;
@@ -23,12 +25,20 @@ public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, I
 
         _closeMainWindowCommand = new Command(CloseMainWindow);
         _openAboutWindowCommand = new Command(OpenAboutWindow);
+        Version = $"Version {applicationVersionProvider.Version.ToString(3)}";
     }
 
+    public string Version { get; }
     public string Title => "Book Shelf";
-
     public ICommand CloseMainWindowCommand => _closeMainWindowCommand;
     public ICommand OpenAboutWindowCommand => _openAboutWindowCommand;
+
+    public override void WindowClosing()
+    {
+        base.WindowClosing();
+
+        _windowManager.Close(_aboutWindowViewModel);
+    }
 
     private void OpenAboutWindow()
     {

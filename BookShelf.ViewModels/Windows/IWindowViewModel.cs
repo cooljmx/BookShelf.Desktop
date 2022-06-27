@@ -2,4 +2,5 @@
 
 public interface IWindowViewModel
 {
+    void WindowClosing();
 }

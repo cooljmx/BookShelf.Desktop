@@ -13,15 +13,25 @@
         Width="{Binding Width, Mode=TwoWay}"
         WindowState="{Binding IsMaximized, Mode=TwoWay, Converter={x:Static converters:BoolToWindowStateConverter.Instance}}"
         d:DataContext="{d:DesignInstance mainWindow:MainWindowViewModel}">
-    <StackPanel Orientation="Vertical"
-                VerticalAlignment="Center">
-        <Button Content="Close Main Window"
-                Command="{Binding CloseMainWindowCommand}"
-                Width="120"
-                Height="21" />
-        <Button Content="Open About Window"
-                Command="{Binding OpenAboutWindowCommand}"
-                Width="120"
-                Height="21" />
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Header="Exit"
+                          Command="{Binding CloseMainWindowCommand}" />
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About"
+                          Command="{Binding OpenAboutWindowCommand}" />
+            </MenuItem>
+        </Menu>
+
+        <StatusBar Grid.Row="2">
+            <StatusBarItem Content="{Binding Version}" />
+        </StatusBar>
+    </Grid>
 </Window>

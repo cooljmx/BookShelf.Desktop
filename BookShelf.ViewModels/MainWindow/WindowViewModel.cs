@@ -42,4 +42,8 @@ public abstract class WindowViewModel<TWindowMementoWrapper> : IWindowViewModel
         get => _windowMementoWrapper.IsMaximized;
         set => _windowMementoWrapper.IsMaximized = value;
     }
+
+    public virtual void WindowClosing()
+    {
+    }
 }
