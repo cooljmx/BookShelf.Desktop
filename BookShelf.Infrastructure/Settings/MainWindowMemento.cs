@@ -1,14 +1,13 @@
-﻿namespace BookShelf.Infrastructure.Settings
+﻿namespace BookShelf.Infrastructure.Settings;
+
+internal class MainWindowMemento : WindowMemento
 {
-    internal class MainWindowMemento : WindowMemento
+    public MainWindowMemento()
     {
-        public MainWindowMemento()
-        {
-            Left = 100;
-            Top = 100;
-            Width = 600;
-            Height = 400;
-            IsMaximized = true;
-        }
+        Left = 100;
+        Top = 100;
+        Width = 600;
+        Height = 400;
+        IsMaximized = true;
     }
 }

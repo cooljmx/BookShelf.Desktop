@@ -1,10 +1,9 @@
 ﻿using BookShelf.ViewModels.Windows;
 
-namespace BookShelf.Views.Factories
+namespace BookShelf.Views.Factories;
+
+public interface IWindowFactory
 {
-    public interface IWindowFactory
-    {
-        IWindow Create<TWindowViewModel>(TWindowViewModel viewModel)
-            where TWindowViewModel : IWindowViewModel;
-    }
+    IWindow Create<TWindowViewModel>(TWindowViewModel viewModel)
+        where TWindowViewModel : IWindowViewModel;
 }

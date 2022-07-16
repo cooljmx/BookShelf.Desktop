@@ -7,53 +7,52 @@ using BookShelf.Infrastructure.Settings;
 using BookShelf.ViewModels.MainWindow;
 using BookShelf.ViewModels.Windows;
 
-namespace BookShelf.Bootstrapper
+namespace BookShelf.Bootstrapper;
+
+public class Bootstrapper : IDisposable
 {
-    public class Bootstrapper : IDisposable
+    private readonly IContainer _container;
+
+    public Bootstrapper()
     {
-        private readonly IContainer _container;
+        var containerBuilder = new ContainerBuilder();
 
-        public Bootstrapper()
-        {
-            var containerBuilder = new ContainerBuilder();
+        containerBuilder
+            .RegisterModule<Infrastructure.RegistrationModule>()
+            .RegisterModule<ViewModels.RegistrationModule>()
+            .RegisterModule<Views.RegistrationModule>()
+            .RegisterModule<RegistrationModule>();
 
-            containerBuilder
-                .RegisterModule<Infrastructure.RegistrationModule>()
-                .RegisterModule<ViewModels.RegistrationModule>()
-                .RegisterModule<Views.RegistrationModule>()
-                .RegisterModule<RegistrationModule>();
+        _container = containerBuilder.Build();
+    }
 
-            _container = containerBuilder.Build();
-        }
+    public Window Run()
+    {
+        InitializeDependencies();
 
-        public Window Run()
-        {
-            InitializeDependencies();
+        var mainWindowViewModel = _container.Resolve<IMainWindowViewModel>();
+        var windowManager = _container.Resolve<IWindowManager>();
 
-            var mainWindowViewModel = _container.Resolve<IMainWindowViewModel>();
-            var windowManager = _container.Resolve<IWindowManager>();
+        var mainWindow = windowManager.Show(mainWindowViewModel);
 
-            var mainWindow = windowManager.Show(mainWindowViewModel);
+        if (mainWindow is not Window window)
+            throw new NotImplementedException();
 
-            if (mainWindow is not Window window)
-                throw new NotImplementedException();
+        return window;
+    }
 
-            return window;
-        }
+    private void InitializeDependencies()
+    {
+        _container.Resolve<IPathServiceInitializer>().Initialize();
 
-        private void InitializeDependencies()
-        {
-            _container.Resolve<IPathServiceInitializer>().Initialize();
+        var windowMementoWrapperInitializers = _container.Resolve<IEnumerable<IWindowMementoWrapperInitializer>>();
 
-            var windowMementoWrapperInitializers = _container.Resolve<IEnumerable<IWindowMementoWrapperInitializer>>();
+        foreach (var windowMementoWrapperInitializer in windowMementoWrapperInitializers)
+            windowMementoWrapperInitializer.Initialize();
+    }
 
-            foreach (var windowMementoWrapperInitializer in windowMementoWrapperInitializers)
-                windowMementoWrapperInitializer.Initialize();
-        }
-
-        public void Dispose()
-        {
-            _container.Dispose();
-        }
+    public void Dispose()
+    {
+        _container.Dispose();
     }
 }

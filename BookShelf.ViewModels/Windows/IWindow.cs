@@ -1,8 +1,7 @@
-﻿namespace BookShelf.ViewModels.Windows
+﻿namespace BookShelf.ViewModels.Windows;
+
+public interface IWindow
 {
-    public interface IWindow
-    {
-        void Show();
-        void Close();
-    }
+    void Show();
+    void Close();
 }

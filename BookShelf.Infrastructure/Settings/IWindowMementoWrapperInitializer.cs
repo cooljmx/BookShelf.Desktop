@@ -1,7 +1,6 @@
-﻿namespace BookShelf.Infrastructure.Settings
+﻿namespace BookShelf.Infrastructure.Settings;
+
+public interface IWindowMementoWrapperInitializer
 {
-    public interface IWindowMementoWrapperInitializer
-    {
-        void Initialize();
-    }
+    void Initialize();
 }

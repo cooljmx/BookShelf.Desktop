@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,10 +13,6 @@
     <ProjectReference Include="..\BookShelf.Infrastructure\BookShelf.Infrastructure.csproj" />
     <ProjectReference Include="..\BookShelf.ViewModels\BookShelf.ViewModels.csproj" />
     <ProjectReference Include="..\BookShelf.Views\BookShelf.Views.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Factories\" />
   </ItemGroup>
 
 </Project>

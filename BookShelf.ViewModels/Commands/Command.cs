@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace BookShelf.ViewModels.Commands
+namespace BookShelf.ViewModels.Commands;
+
+public class Command : ICommand
 {
-    public class Command : ICommand
+    private readonly Action _execute;
+
+    public Command(Action execute)
     {
-        private readonly Action _execute;
-
-        public Command(Action execute)
-        {
-            _execute = execute;
-        }
-
-        public bool CanExecute(object? parameter)
-        {
-            return true;
-        }
-
-        public void Execute(object? parameter)
-        {
-            _execute.Invoke();
-        }
-
-        public event EventHandler? CanExecuteChanged;
+        _execute = execute;
     }
+
+    public bool CanExecute(object? parameter)
+    {
+        return true;
+    }
+
+    public void Execute(object? parameter)
+    {
+        _execute.Invoke();
+    }
+
+    public event EventHandler? CanExecuteChanged;
 }

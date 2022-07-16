@@ -1,8 +1,7 @@
 ﻿using BookShelf.ViewModels.Windows;
 
-namespace BookShelf.Views.AboutWindow
+namespace BookShelf.Views.AboutWindow;
+
+public interface IAboutWindow : IWindow
 {
-    public interface IAboutWindow : IWindow
-    {
-    }
 }

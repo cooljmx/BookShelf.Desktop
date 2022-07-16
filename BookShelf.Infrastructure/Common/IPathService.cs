@@ -1,7 +1,6 @@
-﻿namespace BookShelf.Infrastructure.Common
+﻿namespace BookShelf.Infrastructure.Common;
+
+public interface IPathService
 {
-    public interface IPathService
-    {
-        string ApplicationFolder { get; }
-    }
+    string ApplicationFolder { get; }
 }

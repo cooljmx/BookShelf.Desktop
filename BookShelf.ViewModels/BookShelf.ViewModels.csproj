@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,12 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookShelf.Domain\BookShelf.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MainWindow\" />
-    <Folder Include="Commands\" />
-    <Folder Include="Windows\" />
   </ItemGroup>
 
 </Project>

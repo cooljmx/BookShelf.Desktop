@@ -1,42 +1,41 @@
 ﻿using System;
 using System.IO;
 
-namespace BookShelf.Infrastructure.Common
+namespace BookShelf.Infrastructure.Common;
+
+internal class PathService : IPathService, IPathServiceInitializer
 {
-    internal class PathService : IPathService, IPathServiceInitializer
+    private string _applicationFolder;
+    private bool _initialized;
+
+    public string ApplicationFolder
     {
-        private string _applicationFolder;
-        private bool _initialized;
-
-        public string ApplicationFolder
+        get
         {
-            get
-            {
-                EnsureInitialized();
+            EnsureInitialized();
 
-                return _applicationFolder;
-            }
-            private set => _applicationFolder = value;
+            return _applicationFolder;
         }
+        private set => _applicationFolder = value;
+    }
 
-        public void Initialize()
-        {
-            if (_initialized)
-                throw new InvalidOperationException($"{nameof(IPathService)} is already initialized");
+    public void Initialize()
+    {
+        if (_initialized)
+            throw new InvalidOperationException($"{nameof(IPathService)} is already initialized");
 
-            _initialized = true;
+        _initialized = true;
 
-            var localApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            const string company = "DevTricks";
-            const string applicationName = "BookShelf";
+        var localApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        const string company = "DevTricks";
+        const string applicationName = "BookShelf";
 
-            ApplicationFolder = Path.Combine(localApplicationDataPath, company, applicationName);
-        }
+        ApplicationFolder = Path.Combine(localApplicationDataPath, company, applicationName);
+    }
 
-        private void EnsureInitialized()
-        {
-            if (!_initialized)
-                throw new InvalidOperationException($"{nameof(IPathService)} is not initialized");
-        }
+    private void EnsureInitialized()
+    {
+        if (!_initialized)
+            throw new InvalidOperationException($"{nameof(IPathService)} is not initialized");
     }
 }

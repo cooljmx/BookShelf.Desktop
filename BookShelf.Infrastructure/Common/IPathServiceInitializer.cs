@@ -1,7 +1,6 @@
-﻿namespace BookShelf.Infrastructure.Common
+﻿namespace BookShelf.Infrastructure.Common;
+
+public interface IPathServiceInitializer
 {
-    public interface IPathServiceInitializer
-    {
-        void Initialize();
-    }
+    void Initialize();
 }

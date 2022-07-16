@@ -1,6 +1,5 @@
-﻿namespace BookShelf.ViewModels.Windows
+﻿namespace BookShelf.ViewModels.Windows;
+
+public interface IWindowViewModel
 {
-    public interface IWindowViewModel
-    {
-    }
 }

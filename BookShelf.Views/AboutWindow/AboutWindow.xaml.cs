@@ -1,14 +1,13 @@
 ﻿using BookShelf.ViewModels.MainWindow;
 
-namespace BookShelf.Views.AboutWindow
-{
-    public partial class AboutWindow : IAboutWindow
-    {
-        public AboutWindow(IAboutWindowViewModel aboutWindowViewModel)
-        {
-            InitializeComponent();
+namespace BookShelf.Views.AboutWindow;
 
-            DataContext = aboutWindowViewModel;
-        }
+public partial class AboutWindow : IAboutWindow
+{
+    public AboutWindow(IAboutWindowViewModel aboutWindowViewModel)
+    {
+        InitializeComponent();
+
+        DataContext = aboutWindowViewModel;
     }
 }

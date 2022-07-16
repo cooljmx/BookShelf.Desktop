@@ -1,6 +1,5 @@
-﻿namespace BookShelf.Domain.Settings
+﻿namespace BookShelf.Domain.Settings;
+
+public interface IMainWindowMementoWrapper : IWindowMementoWrapper
 {
-    public interface IMainWindowMementoWrapper : IWindowMementoWrapper
-    {
-    }
 }
