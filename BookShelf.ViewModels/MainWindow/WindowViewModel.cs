@@ -3,7 +3,7 @@ using BookShelf.ViewModels.Windows;
 
 namespace BookShelf.ViewModels.MainWindow;
 
-public abstract class WindowViewModel<TWindowMementoWrapper> : IWindowViewModel
+public abstract class WindowViewModel<TWindowMementoWrapper> : ViewModel, IWindowViewModel
     where TWindowMementoWrapper : class, IWindowMementoWrapper
 {
     private readonly TWindowMementoWrapper _windowMementoWrapper;

@@ -1,7 +1,8 @@
-﻿using BookShelf.ViewModels.Windows;
+﻿using System;
+using BookShelf.ViewModels.Windows;
 
 namespace BookShelf.ViewModels.MainWindow;
 
-public interface IMainWindowViewModel : IWindowViewModel
+public interface IMainWindowViewModel : IWindowViewModel, IDisposable
 {
 }

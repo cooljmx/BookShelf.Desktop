@@ -32,6 +32,12 @@
 
         <StatusBar Grid.Row="2">
             <StatusBarItem Content="{Binding Version}" />
+            <StatusBarItem HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
+                    <StatusBarItem Content="{Binding CurrentDate}" />
+                    <StatusBarItem Content="{Binding CurrentTime}" />
+                </StackPanel>
+            </StatusBarItem>
         </StatusBar>
     </Grid>
 </Window>
