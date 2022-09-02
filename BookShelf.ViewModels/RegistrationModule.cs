@@ -9,7 +9,9 @@ public class RegistrationModule : Module
     {
         base.Load(builder);
 
-        builder.RegisterType<MainWindowViewModel>().As<IMainWindowViewModel>().InstancePerDependency();
-        builder.RegisterType<AboutWindowViewModel>().As<IAboutWindowViewModel>().InstancePerDependency();
+        builder.RegisterType<MainWindowViewModel>().As<IMainWindowViewModel>().InstancePerDependency()
+            .ExternallyOwned();
+        builder.RegisterType<AboutWindowViewModel>().As<IAboutWindowViewModel>().InstancePerDependency()
+            .ExternallyOwned();
     }
 }
