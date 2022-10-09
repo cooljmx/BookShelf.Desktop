@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using Autofac;
+using BookShelf.Domain.Factories;
 using BookShelf.Infrastructure.Common;
 using BookShelf.Infrastructure.Settings;
 using BookShelf.ViewModels.MainWindow;
@@ -31,7 +32,8 @@ public class Bootstrapper : IDisposable
     {
         InitializeDependencies();
 
-        _mainWindowViewModel = _container.Resolve<IMainWindowViewModel>();
+        var mainWindowViewModelFactory = _container.Resolve<IFactory<IMainWindowViewModel>>();
+        _mainWindowViewModel = mainWindowViewModelFactory.Create();
         var windowManager = _container.Resolve<IWindowManager>();
 
         var mainWindow = windowManager.Show(_mainWindowViewModel);
