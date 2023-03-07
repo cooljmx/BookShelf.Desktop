@@ -8,8 +8,4 @@
     <PackageReference Include="Autofac" Version="6.5.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Rest\" />
-  </ItemGroup>
-
 </Project>

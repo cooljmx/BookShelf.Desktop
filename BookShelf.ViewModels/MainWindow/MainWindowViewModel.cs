@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using BookShelf.Domain.DispatcherTimer;
 using BookShelf.Domain.Factories;
 using BookShelf.Domain.Settings;
 using BookShelf.Domain.Version;
+using BookShelf.ViewModels.Authors;
 using BookShelf.ViewModels.Commands;
 using BookShelf.ViewModels.Windows;
 
@@ -12,27 +14,33 @@ namespace BookShelf.ViewModels.MainWindow;
 public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, IMainWindowViewModel
 {
     private readonly IFactory<IAboutWindowViewModel> _aboutWindowViewModelFactory;
+    private readonly IFactory<IAuthorCollectionViewModel> _authorCollectionViewModelFactory;
     private readonly Command _closeMainWindowCommand;
     private readonly IDispatcherTimer _dispatcherTimer;
     private readonly Command _openAboutWindowCommand;
     private readonly IWindowManager _windowManager;
     private IAboutWindowViewModel _aboutWindowViewModel;
+    private IMainWindowContentViewModel _contentViewModel;
     private string _currentDate;
     private string _currentTime;
+    private readonly AsyncCommand _openAuthorCollectionCommand;
 
     public MainWindowViewModel(
         IMainWindowMementoWrapper mainWindowMementoWrapper,
         IWindowManager windowManager,
         IApplicationVersionProvider applicationVersionProvider,
         IDispatcherTimerFactory dispatcherTimerFactory,
-        IFactory<IAboutWindowViewModel> aboutWindowViewModelFactory)
+        IFactory<IAboutWindowViewModel> aboutWindowViewModelFactory,
+        IFactory<IAuthorCollectionViewModel> authorCollectionViewModelFactory)
         : base(mainWindowMementoWrapper)
     {
         _windowManager = windowManager;
         _aboutWindowViewModelFactory = aboutWindowViewModelFactory;
+        _authorCollectionViewModelFactory = authorCollectionViewModelFactory;
 
         _closeMainWindowCommand = new Command(CloseMainWindow);
         _openAboutWindowCommand = new Command(OpenAboutWindow);
+        _openAuthorCollectionCommand = new AsyncCommand(OpenAuthorCollectionAsync);
         _dispatcherTimer = dispatcherTimerFactory.Create(TimeSpan.FromSeconds(1));
         _dispatcherTimer.Tick += OnTimerTick;
         _dispatcherTimer.Start();
@@ -49,7 +57,7 @@ public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, I
         private set
         {
             _currentDate = value;
-            InvokePropertyChanged(nameof(CurrentDate));
+            InvokePropertyChanged();
         }
     }
 
@@ -59,12 +67,24 @@ public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, I
         private set
         {
             _currentTime = value;
-            InvokePropertyChanged(nameof(CurrentTime));
+            InvokePropertyChanged();
+        }
+    }
+
+    public IMainWindowContentViewModel ContentViewModel
+    {
+        get => _contentViewModel;
+        private set
+        {
+            _contentViewModel = value;
+
+            InvokePropertyChanged();
         }
     }
 
     public ICommand CloseMainWindowCommand => _closeMainWindowCommand;
     public ICommand OpenAboutWindowCommand => _openAboutWindowCommand;
+    public ICommand OpenAuthorCollectionCommand => _openAuthorCollectionCommand;
 
     public override void WindowClosing()
     {
@@ -72,6 +92,15 @@ public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, I
 
         if (_aboutWindowViewModel != null)
             _windowManager.Close(_aboutWindowViewModel);
+    }
+
+    private async Task OpenAuthorCollectionAsync()
+    {
+        var authorCollectionViewModel = _authorCollectionViewModelFactory.Create();
+
+        await authorCollectionViewModel.InitializeAsync();
+
+        ContentViewModel = authorCollectionViewModel;
     }
 
     private void OnTimerTick(object sender, EventArgs e)
@@ -82,13 +111,13 @@ public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, I
 
     private void OpenAboutWindow()
     {
-        if (_aboutWindowViewModel==null)
+        if (_aboutWindowViewModel == null)
         {
             _aboutWindowViewModel = _aboutWindowViewModelFactory.Create();
 
             var aboutWindow = _windowManager.Show(_aboutWindowViewModel);
 
-            aboutWindow.Closed += OnAboutWindowClosed; 
+            aboutWindow.Closed += OnAboutWindowClosed;
         }
         else
         {

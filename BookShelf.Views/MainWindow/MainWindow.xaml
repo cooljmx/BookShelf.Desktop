@@ -24,11 +24,18 @@
                 <MenuItem Header="Exit"
                           Command="{Binding CloseMainWindowCommand}" />
             </MenuItem>
+            <MenuItem Header="Collections">
+                <MenuItem Header="Authors"
+                          Command="{Binding OpenAuthorCollectionCommand}" />
+            </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="About"
                           Command="{Binding OpenAboutWindowCommand}" />
             </MenuItem>
         </Menu>
+
+        <ContentControl Grid.Row="1"
+                        Content="{Binding ContentViewModel}" />
 
         <StatusBar Grid.Row="2">
             <StatusBarItem Content="{Binding Version}" />

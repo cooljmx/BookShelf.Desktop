@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using BookShelf.ViewModels.Authors;
+using BookShelf.ViewModels.Extensions;
 using BookShelf.ViewModels.MainWindow;
 
 namespace BookShelf.ViewModels;
@@ -9,9 +11,8 @@ public class RegistrationModule : Module
     {
         base.Load(builder);
 
-        builder.RegisterType<MainWindowViewModel>().As<IMainWindowViewModel>().InstancePerDependency()
-            .ExternallyOwned();
-        builder.RegisterType<AboutWindowViewModel>().As<IAboutWindowViewModel>().InstancePerDependency()
-            .ExternallyOwned();
+        builder.RegisterViewModel<MainWindowViewModel, IMainWindowViewModel>();
+        builder.RegisterViewModel<AboutWindowViewModel, IAboutWindowViewModel>();
+        builder.RegisterViewModel<AuthorCollectionViewModel, IAuthorCollectionViewModel>();
     }
 }

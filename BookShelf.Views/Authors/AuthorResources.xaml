@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:authors="clr-namespace:BookShelf.ViewModels.Authors;assembly=BookShelf.ViewModels">
+    <DataTemplate DataType="{x:Type authors:AuthorCollectionViewModel}">
+        <Grid>
+            <ListBox ItemsSource="{Binding Items}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type authors:AuthorCollectionItemViewModel}">
+        <TextBlock>
+            <Run Text="{Binding FirstName, Mode=OneWay}" />
+            <Run Text="{Binding LastName, Mode=OneWay}" />
+            <Run Text="{Binding BirthDate,Mode=OneWay}" />
+        </TextBlock>
+    </DataTemplate>
+</ResourceDictionary>
