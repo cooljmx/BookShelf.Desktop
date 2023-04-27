@@ -13,15 +13,15 @@ public class AsyncCommand : ICommand
         _execute = execute;
     }
 
-    public bool CanExecute(object parameter)
+    public bool CanExecute(object? parameter)
     {
         return true;
     }
 
-    public async void Execute(object parameter)
+    public async void Execute(object? parameter)
     {
         await _execute.Invoke();
     }
 
-    public event EventHandler CanExecuteChanged;
+    public event EventHandler? CanExecuteChanged;
 }

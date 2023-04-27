@@ -47,7 +47,7 @@ internal class WindowManager : IWindowManager
             window.Close();
     }
 
-    private void OnWindowClosed(object sender, EventArgs e)
+    private void OnWindowClosed(object? sender, EventArgs e)
     {
         if (sender is IWindow window && _windowToViewModelMap.TryGetValue(window, out var viewModel))
         {
@@ -59,7 +59,7 @@ internal class WindowManager : IWindowManager
         }
     }
 
-    private void OnWindowClosing(object sender, CancelEventArgs e)
+    private void OnWindowClosing(object? sender, CancelEventArgs e)
     {
         if (sender is IWindow window && _windowToViewModelMap.TryGetValue(window, out var viewModel))
             viewModel.WindowClosing();

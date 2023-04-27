@@ -26,6 +26,9 @@ internal class ApiRequestExecutor : IApiRequestExecutor
         var content = await httpResponseMessage.Content.ReadAsStringAsync();
         var response = JsonConvert.DeserializeObject<TResponse>(content);
 
-        return response;
+        if (response != null)
+            return response;
+
+        throw new InvalidOperationException("Response can't be null");
     }
 }

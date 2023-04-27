@@ -5,7 +5,7 @@ namespace BookShelf.Infrastructure.Common;
 
 internal class PathService : IPathService, IPathServiceInitializer
 {
-    private string _applicationFolder;
+    private string _applicationFolder = string.Empty;
     private bool _initialized;
 
     public string ApplicationFolder

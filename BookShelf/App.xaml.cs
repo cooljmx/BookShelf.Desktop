@@ -4,7 +4,7 @@ namespace BookShelf;
 
 public partial class App
 {
-    private Bootstrapper.Bootstrapper _bootstrapper;
+    private Bootstrapper.Bootstrapper? _bootstrapper;
 
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -17,7 +17,7 @@ public partial class App
 
     protected override void OnExit(ExitEventArgs e)
     {
-        _bootstrapper.Dispose();
+        _bootstrapper?.Dispose();
 
         base.OnExit(e);
     }

@@ -18,12 +18,12 @@ public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, I
     private readonly Command _closeMainWindowCommand;
     private readonly IDispatcherTimer _dispatcherTimer;
     private readonly Command _openAboutWindowCommand;
-    private readonly IWindowManager _windowManager;
-    private IAboutWindowViewModel _aboutWindowViewModel;
-    private IMainWindowContentViewModel _contentViewModel;
-    private string _currentDate;
-    private string _currentTime;
     private readonly AsyncCommand _openAuthorCollectionCommand;
+    private readonly IWindowManager _windowManager;
+    private IAboutWindowViewModel? _aboutWindowViewModel;
+    private IMainWindowContentViewModel? _contentViewModel;
+    private string _currentDate = string.Empty;
+    private string _currentTime = string.Empty;
 
     public MainWindowViewModel(
         IMainWindowMementoWrapper mainWindowMementoWrapper,
@@ -71,7 +71,7 @@ public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, I
         }
     }
 
-    public IMainWindowContentViewModel ContentViewModel
+    public IMainWindowContentViewModel? ContentViewModel
     {
         get => _contentViewModel;
         private set
@@ -103,7 +103,7 @@ public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, I
         ContentViewModel = authorCollectionViewModel;
     }
 
-    private void OnTimerTick(object sender, EventArgs e)
+    private void OnTimerTick(object? sender, EventArgs e)
     {
         CurrentDate = DateTime.Now.ToShortDateString();
         CurrentTime = DateTime.Now.ToLongTimeString();
@@ -125,7 +125,7 @@ public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, I
         }
     }
 
-    private void OnAboutWindowClosed(object sender, EventArgs e)
+    private void OnAboutWindowClosed(object? sender, EventArgs e)
     {
         if (sender is IWindow window)
         {

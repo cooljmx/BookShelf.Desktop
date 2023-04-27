@@ -4,7 +4,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary 
+                <ResourceDictionary
                     Source="pack://application:,,,/BookShelf.Views;component/Authors/AuthorResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
