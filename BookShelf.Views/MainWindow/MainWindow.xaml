@@ -22,15 +22,15 @@
         <Menu Grid.Row="0">
             <MenuItem Header="File">
                 <MenuItem Header="Exit"
-                          Command="{Binding CloseMainWindowCommand}" />
+                          Command="{Binding MenuViewModel.CloseMainWindowCommand}" />
             </MenuItem>
             <MenuItem Header="Collections">
                 <MenuItem Header="Authors"
-                          Command="{Binding OpenAuthorCollectionCommand}" />
+                          Command="{Binding MenuViewModel.OpenAuthorCollectionCommand}" />
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="About"
-                          Command="{Binding OpenAboutWindowCommand}" />
+                          Command="{Binding MenuViewModel.OpenAboutWindowCommand}" />
             </MenuItem>
         </Menu>
 
@@ -38,11 +38,11 @@
                         Content="{Binding ContentViewModel}" />
 
         <StatusBar Grid.Row="2">
-            <StatusBarItem Content="{Binding Version}" />
+            <StatusBarItem Content="{Binding StatusBarViewModel.Version}" />
             <StatusBarItem HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
-                    <StatusBarItem Content="{Binding CurrentDate}" />
-                    <StatusBarItem Content="{Binding CurrentTime}" />
+                    <StatusBarItem Content="{Binding StatusBarViewModel.CurrentDate}" />
+                    <StatusBarItem Content="{Binding StatusBarViewModel.CurrentTime}" />
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>

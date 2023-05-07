@@ -14,5 +14,7 @@ public class RegistrationModule : Module
         builder.RegisterViewModel<MainWindowViewModel, IMainWindowViewModel>();
         builder.RegisterViewModel<AboutWindowViewModel, IAboutWindowViewModel>();
         builder.RegisterViewModel<AuthorCollectionViewModel, IAuthorCollectionViewModel>();
+        builder.RegisterViewModel<MainWindowMenuViewModel, IMainWindowMenuViewModel>();
+        builder.RegisterViewModel<MainWindowStatusBarViewModel, IMainWindowStatusBarViewModel>();
     }
 }
