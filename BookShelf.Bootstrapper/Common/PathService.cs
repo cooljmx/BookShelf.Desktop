@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
+using BookShelf.Infrastructure.Common;
 
-namespace BookShelf.Infrastructure.Common;
+namespace BookShelf.Bootstrapper.Common;
 
 internal class PathService : IPathService, IPathServiceInitializer
 {

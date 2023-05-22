@@ -1,4 +1,4 @@
-﻿namespace BookShelf.Infrastructure.Common;
+﻿namespace BookShelf.Bootstrapper.Common;
 
 public interface IPathServiceInitializer
 {

@@ -1,18 +1,21 @@
 ﻿using System.Windows;
+using BookShelf.Bootstrapper;
 
 namespace BookShelf;
 
 public partial class App
 {
-    private Bootstrapper.Bootstrapper? _bootstrapper;
+    private ApplicationBootstrapper? _bootstrapper;
 
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
 
-        _bootstrapper = new Bootstrapper.Bootstrapper();
+        _bootstrapper = new ApplicationBootstrapper();
 
-        MainWindow = _bootstrapper.Run();
+        var application = _bootstrapper.CreateApplication();
+
+        MainWindow = application.Run();
     }
 
     protected override void OnExit(ExitEventArgs e)
