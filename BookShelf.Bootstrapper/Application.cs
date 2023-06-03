@@ -6,16 +6,20 @@ using BookShelf.Domain.Factories;
 using BookShelf.Infrastructure.Settings;
 using BookShelf.ViewModels.MainWindow;
 using BookShelf.ViewModels.Windows;
+using NLog;
 
 namespace BookShelf.Bootstrapper;
 
 internal class Application : IApplication, IDisposable
 {
+    private static readonly ILogger Logger = LogManager.GetLogger(nameof(Application));
     private readonly ILifetimeScope _applicationLifetimeScope;
     private IMainWindowViewModel? _mainWindowViewModel;
 
     public Application(ILifetimeScope lifetimeScope)
     {
+        Logger.Info("Created");
+
         _applicationLifetimeScope = lifetimeScope.BeginLifetimeScope(RegisterDependencies);
     }
 
@@ -57,5 +61,7 @@ internal class Application : IApplication, IDisposable
     {
         _mainWindowViewModel?.Dispose();
         _applicationLifetimeScope.Dispose();
+
+        Logger.Info("Disposed");
     }
 }

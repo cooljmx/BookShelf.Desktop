@@ -8,6 +8,7 @@ public interface IMainWindowMenuViewModel
     ICommand CloseMainWindowCommand { get; }
     ICommand OpenAboutWindowCommand { get; }
     ICommand OpenAuthorCollectionCommand { get; }
+    ICommand ThrowExceptionCommand { get; }
 
     void CloseAboutWindow();
 

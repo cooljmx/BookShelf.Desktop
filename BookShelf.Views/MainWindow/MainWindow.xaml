@@ -28,6 +28,10 @@
                 <MenuItem Header="Authors"
                           Command="{Binding MenuViewModel.OpenAuthorCollectionCommand}" />
             </MenuItem>
+            <MenuItem Header="DevTools">
+                <MenuItem Header="Throw exception"
+                          Command="{Binding MenuViewModel.ThrowExceptionCommand}" />
+            </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="About"
                           Command="{Binding MenuViewModel.OpenAboutWindowCommand}" />

@@ -30,11 +30,13 @@ public class MainWindowMenuViewModel : IMainWindowMenuViewModel
         _closeMainWindowCommand = new Command(CloseMainWindow);
         _openAboutWindowCommand = new Command(OpenAboutWindow);
         _openAuthorCollectionCommand = new AsyncCommand(OpenAuthorCollectionAsync);
+        ThrowExceptionCommand = new Command(() => throw new Exception("Test exception"));
     }
 
     public ICommand CloseMainWindowCommand => _closeMainWindowCommand;
     public ICommand OpenAboutWindowCommand => _openAboutWindowCommand;
     public ICommand OpenAuthorCollectionCommand => _openAuthorCollectionCommand;
+    public ICommand ThrowExceptionCommand { get; }
 
     public void CloseAboutWindow()
     {
