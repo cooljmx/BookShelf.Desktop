@@ -21,22 +21,26 @@ public class MainWindowMenuViewModel : IMainWindowMenuViewModel
     public MainWindowMenuViewModel(
         IWindowManager windowManager,
         IFactory<IAboutWindowViewModel> aboutWindowViewModelFactory,
-        IFactory<IAuthorCollectionViewModel> authorCollectionViewModelFactory)
+        IFactory<IAuthorCollectionViewModel> authorCollectionViewModelFactory,
+        IFactory<IDevToolsMenuViewModel> devToolsMenuViewModelFactory)
     {
         _windowManager = windowManager;
         _aboutWindowViewModelFactory = aboutWindowViewModelFactory;
         _authorCollectionViewModelFactory = authorCollectionViewModelFactory;
 
+        DevToolsMenuViewModel = devToolsMenuViewModelFactory.Create();
+
         _closeMainWindowCommand = new Command(CloseMainWindow);
         _openAboutWindowCommand = new Command(OpenAboutWindow);
         _openAuthorCollectionCommand = new AsyncCommand(OpenAuthorCollectionAsync);
-        ThrowExceptionCommand = new Command(() => throw new Exception("Test exception"));
+
+        DevToolsMenuViewModel.ContentViewModelChanged += OnContentViewModelChanged;
     }
 
     public ICommand CloseMainWindowCommand => _closeMainWindowCommand;
     public ICommand OpenAboutWindowCommand => _openAboutWindowCommand;
     public ICommand OpenAuthorCollectionCommand => _openAuthorCollectionCommand;
-    public ICommand ThrowExceptionCommand { get; }
+    public IDevToolsMenuViewModel DevToolsMenuViewModel { get; }
 
     public void CloseAboutWindow()
     {
@@ -88,7 +92,13 @@ public class MainWindowMenuViewModel : IMainWindowMenuViewModel
         ContentViewModelChanged?.Invoke(authorCollectionViewModel);
     }
 
+    private void OnContentViewModelChanged(IMainWindowContentViewModel contentViewModel)
+    {
+        ContentViewModelChanged?.Invoke(contentViewModel);
+    }
+
     public void Dispose()
     {
+        DevToolsMenuViewModel.ContentViewModelChanged -= OnContentViewModelChanged;
     }
 }

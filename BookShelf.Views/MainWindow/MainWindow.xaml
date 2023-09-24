@@ -28,9 +28,23 @@
                 <MenuItem Header="Authors"
                           Command="{Binding MenuViewModel.OpenAuthorCollectionCommand}" />
             </MenuItem>
-            <MenuItem Header="DevTools">
+            <MenuItem Header="DevTools"
+                      Visibility="{Binding MenuViewModel.DevToolsMenuViewModel.IsVisible, Converter={x:Static converters:TrueToVisibleFalseToCollapsedConverter.Instance}}">
+                <MenuItem Header="Logs">
+                    <MenuItem Header="Open Log Viewer"
+                              Command="{Binding MenuViewModel.DevToolsMenuViewModel.OpenLogViewerCommand}" />
+                    <Separator />
+                    <MenuItem Header="Write Info log"
+                              Command="{Binding MenuViewModel.DevToolsMenuViewModel.WriteInfoLogCommand}" />
+                    <MenuItem Header="Write Warn log"
+                              Command="{Binding MenuViewModel.DevToolsMenuViewModel.WriteWarnLogCommand}" />
+                    <MenuItem Header="Write Error log"
+                              Command="{Binding MenuViewModel.DevToolsMenuViewModel.WriteErrorLogCommand}" />
+                    <MenuItem Header="Write Fatal log"
+                              Command="{Binding MenuViewModel.DevToolsMenuViewModel.WriteFatalLogCommand}" />
+                </MenuItem>
                 <MenuItem Header="Throw exception"
-                          Command="{Binding MenuViewModel.ThrowExceptionCommand}" />
+                          Command="{Binding MenuViewModel.DevToolsMenuViewModel.ThrowExceptionCommand}" />
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="About"

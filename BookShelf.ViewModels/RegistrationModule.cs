@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using BookShelf.ViewModels.Authors;
+using BookShelf.ViewModels.DevTools;
 using BookShelf.ViewModels.Extensions;
 using BookShelf.ViewModels.MainWindow;
 
@@ -16,5 +17,7 @@ public class RegistrationModule : Module
         builder.RegisterViewModel<AuthorCollectionViewModel, IAuthorCollectionViewModel>();
         builder.RegisterViewModel<MainWindowMenuViewModel, IMainWindowMenuViewModel>();
         builder.RegisterViewModel<MainWindowStatusBarViewModel, IMainWindowStatusBarViewModel>();
+        builder.RegisterViewModel<DevToolsMenuViewModel, IDevToolsMenuViewModel>();
+        builder.RegisterViewModel<LogViewerViewModel, ILogViewerViewModel>();
     }
 }

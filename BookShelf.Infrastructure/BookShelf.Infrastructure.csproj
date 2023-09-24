@@ -14,4 +14,8 @@
     <ProjectReference Include="..\BookShelf.Domain\BookShelf.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DevTools\" />
+  </ItemGroup>
+
 </Project>

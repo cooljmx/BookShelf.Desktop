@@ -3,12 +3,13 @@ using System.Windows.Input;
 
 namespace BookShelf.ViewModels.MainWindow;
 
-public interface IMainWindowMenuViewModel
+public interface IMainWindowMenuViewModel : IDisposable
 {
     ICommand CloseMainWindowCommand { get; }
     ICommand OpenAboutWindowCommand { get; }
     ICommand OpenAuthorCollectionCommand { get; }
-    ICommand ThrowExceptionCommand { get; }
+
+    IDevToolsMenuViewModel DevToolsMenuViewModel { get; }
 
     void CloseAboutWindow();
 

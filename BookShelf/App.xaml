@@ -6,6 +6,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
                     Source="pack://application:,,,/BookShelf.Views;component/Authors/AuthorResources.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/BookShelf.Views;component/DevTools/DevToolsResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

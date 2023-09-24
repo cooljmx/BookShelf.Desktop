@@ -1,4 +1,5 @@
-﻿using BookShelf.Domain.Factories;
+﻿using System;
+using BookShelf.Domain.Factories;
 using BookShelf.Domain.Settings;
 using BookShelf.ViewModels.Windows;
 
@@ -34,6 +35,9 @@ public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, I
         get => _contentViewModel;
         private set
         {
+            if (_contentViewModel is IDisposable disposableViewModel)
+                disposableViewModel.Dispose();
+
             _contentViewModel = value;
 
             InvokePropertyChanged();
@@ -62,6 +66,9 @@ public class MainWindowViewModel : WindowViewModel<IMainWindowMementoWrapper>, I
         MenuViewModel.MainWindowClosingRequested -= OnMainWindowClosingRequested;
         MenuViewModel.ContentViewModelChanged -= OnContentViewModelChanged;
 
+        ContentViewModel = null;
+
         StatusBarViewModel.Dispose();
+        MenuViewModel.Dispose();
     }
 }

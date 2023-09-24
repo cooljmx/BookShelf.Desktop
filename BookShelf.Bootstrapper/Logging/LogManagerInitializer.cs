@@ -10,11 +10,15 @@ namespace BookShelf.Bootstrapper.Logging;
 
 internal class LogManagerInitializer : ILogManagerInitializer, IDisposable
 {
+    private readonly ILogNotifier _logNotifier;
     private readonly IPathService _pathService;
 
-    public LogManagerInitializer(IPathService pathService)
+    public LogManagerInitializer(
+        IPathService pathService,
+        ILogNotifier logNotifier)
     {
         _pathService = pathService;
+        _logNotifier = logNotifier;
 
         var loggingConfiguration = CreateLoggingConfiguration();
 
@@ -28,7 +32,19 @@ internal class LogManagerInitializer : ILogManagerInitializer, IDisposable
         var appLoggingRule = CreateAppLoggingRule();
         loggingConfiguration.AddRule(appLoggingRule);
 
+        var notificationLoggingRule = CreateNotificationLoggingRule();
+        loggingConfiguration.AddRule(notificationLoggingRule);
+
         return loggingConfiguration;
+    }
+
+    private LoggingRule CreateNotificationLoggingRule()
+    {
+        var notificationTarget = new NotificationTarget(_logNotifier);
+
+        var notificationLoggingRule = new LoggingRule("*", LogLevel.Info, notificationTarget);
+
+        return notificationLoggingRule;
     }
 
     private LoggingRule CreateAppLoggingRule()

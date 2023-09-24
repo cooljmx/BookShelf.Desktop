@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:devTools="clr-namespace:BookShelf.ViewModels.DevTools;assembly=BookShelf.ViewModels"
+                    xmlns:devTools1="clr-namespace:BookShelf.Views.DevTools"
+                    xmlns:converters="clr-namespace:BookShelf.Views.Converters">
+    <DataTemplate DataType="{x:Type devTools:LogViewerViewModel}">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding LogEntryViewModels}"
+                          Margin="5,0" />
+        </ScrollViewer>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type devTools:LogEntryViewModel}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    Margin="1"
+                    CornerRadius="3"
+                    Background="{Binding Level, Converter={x:Static devTools1:LogLevelToSolidColorBrushConverter.Instance}}" />
+            <Grid Grid.Column="1">
+                <StackPanel Orientation="Vertical"
+                            Margin="2">
+                    <TextBlock>
+                        <Run Text="{Binding Timestamp}"
+                             FontWeight="Bold" />
+                        <Run Text="|" />
+                        <Run Text="{Binding LoggerName}"
+                             FontWeight="Bold" />
+                    </TextBlock>
+                    <TextBlock Text="{Binding Message}" />
+                    <TextBlock Text="{Binding StackTrace}"
+                               FontStyle="Italic"
+                               Visibility="{Binding IsStackTraceVisible, Converter={x:Static converters:TrueToVisibleFalseToCollapsedConverter.Instance}}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

@@ -2,6 +2,7 @@
 using Autofac;
 using BookShelf.Bootstrapper.Common;
 using BookShelf.Bootstrapper.Logging;
+using BookShelf.Domain.Logging;
 using BookShelf.Infrastructure.Common;
 
 namespace BookShelf.Bootstrapper;
@@ -36,6 +37,10 @@ public class ApplicationBootstrapper : IDisposable
             .SingleInstance();
         containerBuilder.RegisterType<UnhandledExceptionHandler>().As<IUnhandledExceptionHandler>().SingleInstance();
         containerBuilder.RegisterType<LogManagerInitializer>().As<ILogManagerInitializer>().SingleInstance();
+        containerBuilder.RegisterType<LogNotifier>()
+            .As<ILogNotifier>()
+            .As<ILogSubscriber>()
+            .SingleInstance();
     }
 
     public IApplication CreateApplication()

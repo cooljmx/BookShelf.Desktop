@@ -6,10 +6,15 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.5.0" />
+    <PackageReference Include="NLog" Version="5.1.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BookShelf.Domain\BookShelf.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DevTools\" />
   </ItemGroup>
 
 </Project>
