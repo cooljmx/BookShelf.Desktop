@@ -2,10 +2,20 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:devTools="clr-namespace:BookShelf.ViewModels.DevTools;assembly=BookShelf.ViewModels"
                     xmlns:devTools1="clr-namespace:BookShelf.Views.DevTools"
-                    xmlns:converters="clr-namespace:BookShelf.Views.Converters">
+                    xmlns:converters="clr-namespace:BookShelf.Views.Converters"
+                    xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase">
     <DataTemplate DataType="{x:Type devTools:LogViewerViewModel}">
         <ScrollViewer HorizontalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding LogEntryViewModels}"
+            <ScrollViewer.Resources>
+                <CollectionViewSource x:Key="LogEntryViewModelsViewSource"
+                                      Source="{Binding LogEntryViewModels}">
+                    <CollectionViewSource.SortDescriptions>
+                        <componentModel:SortDescription Direction="Descending"
+                                                        PropertyName="Timestamp" />
+                    </CollectionViewSource.SortDescriptions>
+                </CollectionViewSource>
+            </ScrollViewer.Resources>
+            <ItemsControl ItemsSource="{Binding Source={StaticResource LogEntryViewModelsViewSource}}"
                           Margin="5,0" />
         </ScrollViewer>
     </DataTemplate>
@@ -25,7 +35,7 @@
                 <StackPanel Orientation="Vertical"
                             Margin="2">
                     <TextBlock>
-                        <Run Text="{Binding Timestamp}"
+                        <Run Text="{Binding TimestampValue}"
                              FontWeight="Bold" />
                         <Run Text="|" />
                         <Run Text="{Binding LoggerName}"

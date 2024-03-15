@@ -17,7 +17,8 @@ public class DevToolsMenuViewModel : IDevToolsMenuViewModel
 
     public DevToolsMenuViewModel(
         IDevToolsStatusProvider devToolsStatusProvider,
-        IFactory<ILogViewerViewModel> logViewerViewModelFactory)
+        IFactory<ILogViewerViewModel> logViewerViewModelFactory,
+        ILogEntryViewModelRepository logEntryViewModelRepository)
     {
         _devToolsStatusProvider = devToolsStatusProvider;
         _logViewerViewModelFactory = logViewerViewModelFactory;
@@ -28,6 +29,7 @@ public class DevToolsMenuViewModel : IDevToolsMenuViewModel
         WriteWarnLogCommand = new Command(() => Logger.Warn("Testing warn log"));
         WriteErrorLogCommand = new Command(() => Logger.Error("Testing error log"));
         WriteFatalLogCommand = new Command(() => Logger.Fatal("Testing fatal log"));
+        ClearLogsCommand = new Command(logEntryViewModelRepository.Clear);
     }
 
     public bool IsVisible => _devToolsStatusProvider.IsEnabled;
@@ -37,6 +39,7 @@ public class DevToolsMenuViewModel : IDevToolsMenuViewModel
     public ICommand WriteWarnLogCommand { get; }
     public ICommand WriteErrorLogCommand { get; }
     public ICommand WriteFatalLogCommand { get; }
+    public ICommand ClearLogsCommand { get; }
     public event Action<IMainWindowContentViewModel>? ContentViewModelChanged;
 
     private void OpenLogViewer()

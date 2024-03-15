@@ -1,8 +1,7 @@
-﻿using System;
-using BookShelf.ViewModels.MainWindow;
+﻿using BookShelf.ViewModels.MainWindow;
 
 namespace BookShelf.ViewModels.DevTools;
 
-public interface ILogViewerViewModel : IMainWindowContentViewModel, IDisposable
+public interface ILogViewerViewModel : IMainWindowContentViewModel
 {
 }

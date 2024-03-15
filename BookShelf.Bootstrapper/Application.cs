@@ -4,6 +4,7 @@ using System.Windows;
 using Autofac;
 using BookShelf.Domain.Factories;
 using BookShelf.Infrastructure.Settings;
+using BookShelf.ViewModels.DevTools;
 using BookShelf.ViewModels.MainWindow;
 using BookShelf.ViewModels.Windows;
 using NLog;
@@ -55,6 +56,8 @@ internal class Application : IApplication, IDisposable
 
         foreach (var windowMementoWrapperInitializer in windowMementoWrapperInitializers)
             windowMementoWrapperInitializer.Initialize();
+
+        _applicationLifetimeScope.Resolve<ILogEntryViewModelRepository>();
     }
 
     public void Dispose()

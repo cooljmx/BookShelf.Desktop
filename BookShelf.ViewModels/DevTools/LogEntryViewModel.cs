@@ -1,10 +1,12 @@
-﻿using BookShelf.Domain.Logging;
+﻿using System;
+using BookShelf.Domain.Logging;
 
 namespace BookShelf.ViewModels.DevTools;
 
 public class LogEntryViewModel
 {
-    public required string Timestamp { get; init; }
+    public required DateTime Timestamp { get; init; }
+    public required string TimestampValue { get; init; }
     public required LogLevel Level { get; init; }
     public required string LoggerName { get; init; }
     public required string Message { get; init; }

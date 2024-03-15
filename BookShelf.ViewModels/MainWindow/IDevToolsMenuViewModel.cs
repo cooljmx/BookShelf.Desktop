@@ -12,6 +12,7 @@ public interface IDevToolsMenuViewModel
     ICommand WriteWarnLogCommand { get; }
     ICommand WriteErrorLogCommand { get; }
     ICommand WriteFatalLogCommand { get; }
+    ICommand ClearLogsCommand { get; }
 
     event Action<IMainWindowContentViewModel> ContentViewModelChanged;
 }

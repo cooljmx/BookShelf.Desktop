@@ -19,5 +19,7 @@ public class RegistrationModule : Module
         builder.RegisterViewModel<MainWindowStatusBarViewModel, IMainWindowStatusBarViewModel>();
         builder.RegisterViewModel<DevToolsMenuViewModel, IDevToolsMenuViewModel>();
         builder.RegisterViewModel<LogViewerViewModel, ILogViewerViewModel>();
+
+        builder.RegisterType<LogEntryViewModelRepository>().As<ILogEntryViewModelRepository>().SingleInstance();
     }
 }
