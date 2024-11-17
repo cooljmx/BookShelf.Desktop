@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.5.0" />
-    <PackageReference Include="NLog" Version="5.1.5" />
+    <PackageReference Include="Autofac" Version="8.1.1" />
+    <PackageReference Include="NLog" Version="5.3.4" />
   </ItemGroup>
 
   <ItemGroup>
