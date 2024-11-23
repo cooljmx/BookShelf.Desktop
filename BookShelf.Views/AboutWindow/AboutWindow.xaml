@@ -13,6 +13,7 @@
         WindowState="Normal"
         ResizeMode="NoResize"
         WindowStyle="SingleBorderWindow"
+        Style="{StaticResource WindowStyle}"
         d:DataContext="{d:DesignInstance mainWindow:AboutWindowViewModel}">
     <StackPanel Orientation="Vertical"
                 VerticalAlignment="Center"

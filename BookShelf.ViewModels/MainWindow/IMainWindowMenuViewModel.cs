@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using BookShelf.ViewModels.MainWindow.Menu;
 
 namespace BookShelf.ViewModels.MainWindow;
 
@@ -9,6 +10,7 @@ public interface IMainWindowMenuViewModel : IDisposable
     ICommand OpenAboutWindowCommand { get; }
     ICommand OpenAuthorCollectionCommand { get; }
 
+    IViewMenuViewModel ViewMenuViewModel { get; }
     IDevToolsMenuViewModel DevToolsMenuViewModel { get; }
 
     void CloseAboutWindow();

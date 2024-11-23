@@ -8,6 +8,8 @@
                     Source="pack://application:,,,/BookShelf.Views;component/Authors/AuthorResources.xaml" />
                 <ResourceDictionary
                     Source="pack://application:,,,/BookShelf.Views;component/DevTools/DevToolsResources.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/BookShelf.Views;component/Styles/WindowResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

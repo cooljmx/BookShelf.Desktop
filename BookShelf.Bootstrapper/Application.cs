@@ -6,6 +6,7 @@ using BookShelf.Domain.Factories;
 using BookShelf.Infrastructure.Settings;
 using BookShelf.ViewModels.DevTools;
 using BookShelf.ViewModels.MainWindow;
+using BookShelf.ViewModels.Themes;
 using BookShelf.ViewModels.Windows;
 using NLog;
 
@@ -58,6 +59,7 @@ internal class Application : IApplication, IDisposable
             windowMementoWrapperInitializer.Initialize();
 
         _applicationLifetimeScope.Resolve<ILogEntryViewModelRepository>();
+        _applicationLifetimeScope.Resolve<IThemeManager>().SwitchTo(Theme.Dark);
     }
 
     public void Dispose()

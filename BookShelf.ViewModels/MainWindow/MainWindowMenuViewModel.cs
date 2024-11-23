@@ -4,6 +4,7 @@ using System.Windows.Input;
 using BookShelf.Domain.Factories;
 using BookShelf.ViewModels.Authors;
 using BookShelf.ViewModels.Commands;
+using BookShelf.ViewModels.MainWindow.Menu;
 using BookShelf.ViewModels.Windows;
 
 namespace BookShelf.ViewModels.MainWindow;
@@ -22,13 +23,15 @@ public class MainWindowMenuViewModel : IMainWindowMenuViewModel
         IWindowManager windowManager,
         IFactory<IAboutWindowViewModel> aboutWindowViewModelFactory,
         IFactory<IAuthorCollectionViewModel> authorCollectionViewModelFactory,
-        IFactory<IDevToolsMenuViewModel> devToolsMenuViewModelFactory)
+        IFactory<IDevToolsMenuViewModel> devToolsMenuViewModelFactory,
+        IFactory<IViewMenuViewModel> viewMenuViewModelFactory)
     {
         _windowManager = windowManager;
         _aboutWindowViewModelFactory = aboutWindowViewModelFactory;
         _authorCollectionViewModelFactory = authorCollectionViewModelFactory;
 
         DevToolsMenuViewModel = devToolsMenuViewModelFactory.Create();
+        ViewMenuViewModel = viewMenuViewModelFactory.Create();
 
         _closeMainWindowCommand = new Command(CloseMainWindow);
         _openAboutWindowCommand = new Command(OpenAboutWindow);
@@ -40,6 +43,8 @@ public class MainWindowMenuViewModel : IMainWindowMenuViewModel
     public ICommand CloseMainWindowCommand => _closeMainWindowCommand;
     public ICommand OpenAboutWindowCommand => _openAboutWindowCommand;
     public ICommand OpenAuthorCollectionCommand => _openAuthorCollectionCommand;
+
+    public IViewMenuViewModel ViewMenuViewModel { get; }
     public IDevToolsMenuViewModel DevToolsMenuViewModel { get; }
 
     public void CloseAboutWindow()

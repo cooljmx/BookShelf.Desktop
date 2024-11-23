@@ -12,6 +12,7 @@
         Height="{Binding Height, Mode=TwoWay}"
         Width="{Binding Width, Mode=TwoWay}"
         WindowState="{Binding IsMaximized, Mode=TwoWay, Converter={x:Static converters:BoolToWindowStateConverter.Instance}}"
+        Style="{StaticResource WindowStyle}"
         d:DataContext="{d:DesignInstance mainWindow:MainWindowViewModel}">
     <Grid>
         <Grid.RowDefinitions>
@@ -23,6 +24,14 @@
             <MenuItem Header="File">
                 <MenuItem Header="Exit"
                           Command="{Binding MenuViewModel.CloseMainWindowCommand}" />
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Themes">
+                    <MenuItem Header="Light"
+                              Command="{Binding MenuViewModel.ViewMenuViewModel.ThemesMenuViewModel.SetLightThemeCommand}" />
+                    <MenuItem Header="Dark"
+                              Command="{Binding MenuViewModel.ViewMenuViewModel.ThemesMenuViewModel.SetDarkThemeCommand}" />
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Collections">
                 <MenuItem Header="Authors"
